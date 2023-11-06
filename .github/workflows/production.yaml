@@ -18,6 +18,11 @@ jobs:
             env:
               POSTGRES_USER: postgres
               POSTGRES_PASSWORD: 12012010
+            options: >-
+              --health-cmd pg_isready
+              --health-interval 10s
+              --health-timeout 5s
+              --health-retries 5
             ports:
               - 5432:5432
         env:
@@ -25,11 +30,14 @@ jobs:
 
         steps:
             - uses: actions/checkout@v3
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16
+            - run: npm install
             - name: Install Vercel CLI
               run: npm install --global vercel
             - name: Install Prisma
-              run: npx prisma generate
+              run: npx prisma migrate deploy
             - name: Pull Vercel Environment Information
               run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
