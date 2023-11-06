@@ -17,11 +17,11 @@ jobs:
             image: postgres
             env:
               POSTGRES_USER: postgres
-              POSTGRES_PASSWORD: 123456
+              POSTGRES_PASSWORD: 12012010
             ports:
               - 5432:5432
         env:
-          DATABASE_URL: postgresql://postgres:123456@localhost:5432/demo
+          DATABASE_URL: postgresql://postgres:12012010@localhost:5432/demo
 
         steps:
             - uses: actions/checkout@v3
